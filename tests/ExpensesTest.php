@@ -34,7 +34,17 @@ class ExpensesTest extends TestCase
 	}
 
 
-	private function seedDatabase ()
+	public function testDeleteExpense()
+	{
+		$this->seedDatabase();
+		$expense = Expense::where('title', 'ropa')->first();
+
+		$this->delete('/expenses/' . $expense->id)
+				 ->notSeeInDatabase('expenses', ['title'=> 'ropa', 'amount' => 20], $connection = null);
+	}
+
+
+	private function seedDatabase()
 	{
 		Expense::truncate();
 		$this->call('POST', '/expenses', ['title'=> 'ropa', 'amount' => 20]);
