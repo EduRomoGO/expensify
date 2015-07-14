@@ -28,6 +28,8 @@ class ExpensesTest extends TestCase
 		$response = $this->call('GET', '/expenses');
 		$expenses = $response->getData();
 
+		$this->assertTrue( ($expenses[0]->title == 'ropa') || ($expenses[0]->title == 'juguetes') );
+		$this->assertTrue( ($expenses[0]->amount == 20) || ($expenses[0]->amount == 30) );
 		$this->assertCount(2, $expenses);
 	}
 
