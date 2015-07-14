@@ -14,7 +14,8 @@
 use App\Expense;
 
 Route::get('/expenses', function () {
-    return '';
+    $expenses = Expense::all();
+    return Response::json($expenses);
 });
 
 Route::post('/expenses', function () {
