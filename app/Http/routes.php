@@ -11,6 +11,13 @@
 |
 */
 
+use App\Expense;
+
 Route::get('/expenses', function () {
     return '';
+});
+
+Route::post('/expenses', function () {
+	  $input = Request::all();
+	  Expense::create($input);
 });
