@@ -22,3 +22,9 @@ Route::post('/expenses', function () {
 	  $input = Request::all();
 	  Expense::create($input);
 });
+
+Route::delete('/expenses/{id}', function($id)
+{ 
+    $expense = Expense::find($id);
+    $expense->delete();
+});
