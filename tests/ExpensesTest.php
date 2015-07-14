@@ -51,4 +51,12 @@ class ExpensesTest extends TestCase
 		$this->post('/expenses', ['title'=> 'juguetes', 'amount' => 30]);
 	}
 
+
+  public function testAppLandingRoute()
+  {
+    $this->visit('/')
+         ->seeStatusCode(200);
+  }
+
+
 }
