@@ -28,3 +28,9 @@ Route::delete('/expenses/{id}', function($id)
     $expense = Expense::find($id);
     $expense->delete();
 });
+
+Route::get('/', function()
+{ 
+    return '';
+});
+
