@@ -4,3 +4,4 @@ Homestead.yaml
 .env
 .borrador
 .DS_Store
+tests/_output/*
