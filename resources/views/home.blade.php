@@ -18,6 +18,10 @@
 
     {!! Form::close() !!}
 
+    <button class="form-group btn btn-primary create-expense" id="add" name="createExpense">
+      Crear Gasto
+    </button>
+  
   </div>
 
 @stop
