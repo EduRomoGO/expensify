@@ -17,6 +17,6 @@ Route::resource('expenses', 'ExpensesController');
 
 Route::get('/', function()
 { 
-    return view('welcome');
+    return view('home');
 });
 
