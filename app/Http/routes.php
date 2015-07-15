@@ -13,9 +13,7 @@
 
 use App\Expense;
 
-Route::get('/expenses', 'ExpensesController@index');
-Route::post('/expenses', 'ExpensesController@store');
-Route::delete('/expenses/{id}', 'ExpensesController@destroy');
+Route::resource('expenses', 'ExpensesController');
 
 Route::get('/', function()
 { 
