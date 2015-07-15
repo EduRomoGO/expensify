@@ -8,8 +8,6 @@ use App\Expense;
 class ExpensesTest extends TestCase
 {
 
-	
-
   public function testExpensesRoute()
   {
     $this->visit('/expenses')
