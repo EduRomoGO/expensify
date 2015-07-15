@@ -21,7 +21,12 @@
     <button class="form-group btn btn-primary create-expense" id="add" name="createExpense">
       Crear Gasto
     </button>
-  
+
+    <button class="form-group btn btn-primary see-expenses" id="see" name="showExpenses">
+      Ver Gastos
+    </button>
+
+
   </div>
 
 @stop
