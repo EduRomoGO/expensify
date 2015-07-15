@@ -8,6 +8,8 @@ use App\Expense;
 class ExpensesTest extends TestCase
 {
 
+	
+
   public function testExpensesRoute()
   {
     $this->visit('/expenses')
@@ -17,8 +19,9 @@ class ExpensesTest extends TestCase
 
 	public function testCreateExpense()
 	{
-		$this->post('/expenses', ['title'=> 'ropa', 'amount' => 20])
-				 ->seeInDatabase('expenses', ['title'=> 'ropa', 'amount' => 20], $connection = null);
+		$dummyExpense = ['title'=> 'ropa', 'amount' => 20];
+		$this->post('/expenses', $dummyExpense)
+				 ->seeInDatabase('expenses', $dummyExpense, $connection = null);
 	}
 
 	public function testSeeExpenses()

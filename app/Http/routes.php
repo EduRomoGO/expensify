@@ -13,21 +13,9 @@
 
 use App\Expense;
 
-Route::get('/expenses', function () {
-    $expenses = Expense::all();
-    return Response::json($expenses);
-});
-
-Route::post('/expenses', function () {
-	  $input = Request::all();
-	  Expense::create($input);
-});
-
-Route::delete('/expenses/{id}', function($id)
-{ 
-    $expense = Expense::find($id);
-    $expense->delete();
-});
+Route::get('/expenses', 'ExpensesController@index');
+Route::post('/expenses', 'ExpensesController@store');
+Route::delete('/expenses/{id}', 'ExpensesController@destroy');
 
 Route::get('/', function()
 { 
