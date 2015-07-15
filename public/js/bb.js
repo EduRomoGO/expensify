@@ -13,6 +13,7 @@
     url: '/expenses'
   });
 
+  var FetchedExpenses = new ExpenseList();
 
 
 
@@ -35,7 +36,47 @@
 
 
 
-  var ListView = Backbone.View.extend({
+  var FetchedExpensesView = Backbone.View.extend({
+    
+    el: 'body',
+    
+    events: {
+      'click button#see': 'seeExpenses',
+    },
+
+    initialize: function(){
+      _.bindAll(this, 'render', 'seeExpenses', 'appendExpense');
+      FetchedExpenses.bind('update', this.render);
+    },
+
+    render: function() {
+      var self = this;
+      $('#expenses-fetched-home').remove();
+      $(this.el).append("<section id='expenses-fetched-home'><ul class='fetched'></ul></section>");
+      _(FetchedExpenses.models).each(function(expense){
+        self.appendExpense(expense);
+      }, this);
+    },
+
+    seeExpenses: function() {
+      FetchedExpenses.fetch();
+    },
+
+    appendExpense: function (expense) {
+      var expenseView = new ExpenseView({
+        model: expense
+      });
+      $('ul', this.el).append(expenseView.render().el);
+    }
+
+  });
+
+  var FetchedExpensesListView = new FetchedExpensesView();
+
+
+
+
+  var ExpensesView = Backbone.View.extend({
     
     el: $('body'),
 
@@ -76,7 +117,7 @@
 
   });
 
-  var expensesListView = new ListView();
+  var ExpensesListView = new ExpensesView();
 
 
 
