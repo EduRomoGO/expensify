@@ -21,14 +21,30 @@
     
     tagName: 'li',
     
+    events: {
+      'click span.delete': 'remove'
+    },
+
     initialize: function(){
-      _.bindAll(this, 'render');
+      _.bindAll(this, 'render', 'remove', 'removeElementFromList');
+
+      this.model.bind('remove', this.removeElementFromList);
     },
 
     render: function() {
       $(this.el).html(
-        this.model.attributes.title + " " + this.model.attributes.amount);
+        this.model.attributes.title + " " + this.model.attributes.amount + 
+        "  <span class='delete' style='color:red';>eliminar</span>");
       return this;
+    },
+
+    removeElementFromList: function() {
+      $(this.el).remove();
+    },
+
+    remove: function() {
+      //console.log("hola");
+      this.model.destroy();
     }
 
   });
