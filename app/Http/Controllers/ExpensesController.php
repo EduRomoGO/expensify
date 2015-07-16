@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Request;
 use App\Expense;
 use Log;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ExpensesController extends Controller
 {
@@ -45,7 +46,16 @@ class ExpensesController extends Controller
      */
     public function destroy($id)
     {
-        $expense = Expense::find($id);
-        $expense->delete();
+        try
+        {
+            $expense = Expense::findOrFail($id);
+            $expense->delete();
+        }
+        catch(ModelNotFoundException $e)
+        {
+            Log::error($e->getMessage());
+            Log::info('Modelo no encontrado');
+            return response()->make('Model not found', 400);
+        }
     }
 }
