@@ -60,4 +60,12 @@ class ExpensesTest extends TestCase
   }
 
 
+  public function testAmountMustBeNumeric()
+  {
+		$dummyExpense = ['title'=> 'ropa', 'amount' => 'aaa'];
+		$this->post('/expenses', $dummyExpense)
+				 ->notSeeInDatabase('expenses', $dummyExpense, $connection = null);
+  }
+
+
 }
