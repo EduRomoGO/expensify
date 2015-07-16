@@ -1,5 +1,19 @@
 
-/*# sourceMappingURL=app.css.map */
+body {
+    background-color: rgb(162, 238, 220);
+}
+
+ul {
+  margin: 0px;
+  padding: 0px;
+}
+
+li {
+  list-style: none;
+  margin-bottom: 15px;
+  padding-left: 9px;
+  color: rgb(115, 115, 197);
+}
 
 .home-header {
   margin: 0 auto;
@@ -16,10 +30,6 @@
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
-}
-
-html, body {
-    background-color: rgb(162, 238, 220);
 }
 
 .title, .amount {
@@ -46,6 +56,32 @@ html, body {
 }
 
 
+.delete {
+  color: red;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.expenses-home {
+  padding: 25px;
+  font-size: 19px;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 84%;
+
+}
+
+.expenses-title {
+  display: none;
+}
+
+h1 {
+  color: rgb(115, 115, 197);
+}
+
+
 @media (max-width: 800px) {
 	.container {
 	  background-color: rgb(162, 238, 220);
@@ -55,37 +91,3 @@ html, body {
 	  margin-left: 0px;
 	}
 }
-
-
-.delete {
-	color: red;
-	font-size: 15px;
-	cursor: pointer;
-}
-
-li {
-  list-style: none;
-  margin-bottom: 15px;
-  padding-left: 9px;
-  color: rgb(115, 115, 197);
-}
-
-ul {
-	margin: 0px;
-	padding: 0px;
-}
-
-.expenses-home {
-	padding: 25px;
-	font-size: 19px;
-}
-
-.expenses-title {
-	display: none;
-}
-
-h1 {
-	color: rgb(115, 115, 197);
-}
-
-
