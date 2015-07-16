@@ -2,7 +2,9 @@
 
 @section('content')
 
-  <div id="new-expense-form-wrapper">
+  <header class="home-header">Expensify - Controla tus gastos</header>
+
+  <div id="new-expense-form-wrapper" class="form-wrapper">
 
     {!! Form::open(['url' => 'expenses']) !!}
       

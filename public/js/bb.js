@@ -19,23 +19,15 @@
   var MsgView = Backbone.View.extend({
     
     tagName: 'div',
-    
-    events: {
-      'click .close': 'hideMsg'
-    },
+    className: 'msg expense-ok',
 
     initialize: function(){
-      _.bindAll(this, 'render', 'hideMsg');
+      _.bindAll(this, 'render');
     },
 
     render: function() {
-      $(this.el).html('<span class="close expense-ok">Gasto creado correctamente</span>');
-      console.log('hola hola');
+      $(this.el).html('Gasto creado correctamente');
       return this;
-    },
-
-    hideMsg: function() {
-      $('.close').hide();
     }
 
   });
@@ -67,7 +59,6 @@
     },
 
     remove: function() {
-      //console.log("hola");
       this.model.destroy();
     }
 
@@ -122,9 +113,10 @@
     },
 
     showMsgNewExpenseAdded: function() {
-      console.log('hola');
+      $('.msg').remove();
       var msgView = new MsgView();
-      $('section', this.el).append(msgView.render().el);
+      $('.container', this.el).append(msgView.render().el);
+      $('.msg').delay(500).fadeOut(2000);
     }
 
   });
