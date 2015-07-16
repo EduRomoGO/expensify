@@ -42,7 +42,7 @@
     },
 
     initialize: function(){
-      _.bindAll(this, 'render', 'remove', 'removeElementFromList');
+      _.bindAll(this, 'render', 'remove', 'removeElementFromList', 'showMsg');
 
       this.model.bind('remove', this.removeElementFromList);
     },
@@ -59,7 +59,17 @@
     },
 
     remove: function() {
-      this.model.destroy();
+      this.model.destroy(null, {error: this.showMsg});
+    },
+
+    showMsg: function(model, res) {
+      $('.msg').remove();
+      var msgView = new MsgView();
+
+        var msg = res.responseText;
+      
+      $('.container', this.el).append(msgView.render(msg).el);
+      $('.msg').delay(500).fadeOut(2000);
     }
 
   });
