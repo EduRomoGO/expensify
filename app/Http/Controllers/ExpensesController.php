@@ -37,8 +37,14 @@ class ExpensesController extends Controller
     public function store(Request $request)
     {
         $input = Request::all();
-        Expense::create($input);
-        return response()->make($input, 200);
+        if (is_numeric($input['amount'])) {
+            Expense::create($input);
+            return response()->make($input, 200);
+        } 
+        else 
+        {
+            return response()->make('Amount must be numeric', 400);
+        }
     }
 
     /**
