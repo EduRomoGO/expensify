@@ -79,7 +79,6 @@
       _.bindAll(this, 'render', 'addExpense', 'appendExpense', 'seeExpenses', 'showMsgNewExpenseAdded');
 
       this.collection = new ExpenseList();
-      this.collection.bind('add', this.showMsgNewExpenseAdded);
       FetchedExpenses.bind('update', this.render);
 
       this.render();
@@ -99,7 +98,7 @@
       var expense = new Expense();
       expense.set({title: $('.title').val(), amount: $('.amount').val()});
       this.collection.add(expense);
-      expense.save({success: this.showMsgNewExpenseAdded});
+      expense.save(null, {success: this.showMsgNewExpenseAdded});
     },
 
     appendExpense: function (expense) {

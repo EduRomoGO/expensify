@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Request;
 use App\Expense;
+use Log;
 
 class ExpensesController extends Controller
 {
@@ -37,6 +38,7 @@ class ExpensesController extends Controller
     {
         $input = Request::all();
         Expense::create($input);
+        return response()->make($input, 200);
     }
 
     /**
