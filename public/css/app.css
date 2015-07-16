@@ -56,3 +56,36 @@ html, body {
 	}
 }
 
+
+.delete {
+	color: red;
+	font-size: 15px;
+	cursor: pointer;
+}
+
+li {
+  list-style: none;
+  margin-bottom: 15px;
+  padding-left: 9px;
+  color: rgb(115, 115, 197);
+}
+
+ul {
+	margin: 0px;
+	padding: 0px;
+}
+
+.expenses-home {
+	padding: 25px;
+	font-size: 19px;
+}
+
+.expenses-title {
+	display: none;
+}
+
+h1 {
+	color: rgb(115, 115, 197);
+}
+
+

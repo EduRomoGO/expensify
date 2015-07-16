@@ -49,8 +49,8 @@
 
     render: function() {
       $(this.el).html(
-        this.model.attributes.title + " " + this.model.attributes.amount + 
-        "  <span class='delete' style='color:red';>eliminar</span>");
+        "<span>" + this.model.attributes.title + "&nbsp;&nbsp;&nbsp;" + this.model.attributes.amount + "</span>" +
+        "&nbsp;&nbsp; <span class='glyphicon glyphicon-remove delete' aria-hidden='true'></span>");
       return this;
     },
 
@@ -88,7 +88,8 @@
     render: function(){
       var self = this;
       $('#expenses-home').remove();
-      $(this.el).append("<section id='expenses-home'><ul></ul></section>");
+      $(this.el).append("<section id='expenses-home' class='expenses-home'><ul></ul></section>");
+      $('.expenses-home').prepend("<h1 class='expenses-title'>Lista de Gastos:</h1>");
       _(FetchedExpenses.models).each(function(expense){
         self.appendExpense(expense);
       }, this);
@@ -102,6 +103,7 @@
     },
 
     appendExpense: function (expense) {
+      $('.expenses-title').removeClass("expenses-title");
       var expenseView = new ExpenseView({
         model: expense
       });
@@ -113,6 +115,8 @@
     },
 
     showMsgNewExpenseAdded: function() {
+      $('.title').val('');
+      $('.amount').val('');
       $('.msg').remove();
       var msgView = new MsgView();
       $('.container', this.el).append(msgView.render().el);
