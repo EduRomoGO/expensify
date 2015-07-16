@@ -4,6 +4,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Expense;
+use Log;
 
 class ExpensesTest extends TestCase
 {
@@ -67,5 +68,11 @@ class ExpensesTest extends TestCase
 				 ->notSeeInDatabase('expenses', $dummyExpense, $connection = null);
   }
 
+
+  public function testReceiveMsgIfExpenseNotDeleted()
+  {
+		$response = $this->call('DELETE', '/expenses/30');
+		$this->assertEquals($response->getContent(), 'Model not found');
+  }
 
 }
