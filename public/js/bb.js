@@ -16,26 +16,10 @@
   var FetchedExpenses = new ExpenseList();
 
 
-  var OkMsgView = Backbone.View.extend({
+  var MsgView = Backbone.View.extend({
     
     tagName: 'div',
     className: 'msg expense-ok',
-
-    initialize: function(){
-      _.bindAll(this, 'render');
-    },
-
-    render: function() {
-      $(this.el).html('Gasto creado correctamente');
-      return this;
-    }
-
-  });
-
-  var ErrorMsgView = Backbone.View.extend({
-    
-    tagName: 'div',
-    className: 'msg expense-ko',
 
     initialize: function(){
       _.bindAll(this, 'render');
@@ -92,7 +76,7 @@
     },
 
     initialize: function(){
-      _.bindAll(this, 'render', 'addExpense', 'appendExpense', 'seeExpenses', 'showMsgNewExpenseAdded', 'showErrorMsg');
+      _.bindAll(this, 'render', 'addExpense', 'appendExpense', 'seeExpenses', 'showMsg');
 
       this.collection = new ExpenseList();
       FetchedExpenses.bind('update', this.render);
@@ -115,8 +99,8 @@
       expense.set({title: $('.title').val(), amount: $('.amount').val()});
       this.collection.add(expense);
       expense.save(null, {
-          'error': this.showErrorMsg,
-          'success': this.showMsgNewExpenseAdded
+          'error': this.showMsg,
+          'success': this.showMsg
       });
     },
 
@@ -132,21 +116,18 @@
       FetchedExpenses.fetch();
     },
 
-    showMsgNewExpenseAdded: function() {
+    showMsg: function(model, res) {
       $('.title').val('');
       $('.amount').val('');
       $('.msg').remove();
-      var msgView = new OkMsgView();
-      $('.container', this.el).append(msgView.render().el);
-      $('.msg').delay(500).fadeOut(2000);
-    },
-
-    showErrorMsg: function(model, res) {
-      $('.title').val('');
-      $('.amount').val('');
-      $('.msg').remove();
-      var msgView = new ErrorMsgView();
-      $('.container', this.el).append(msgView.render(res.responseText).el);
+      var msgView = new MsgView();
+      if (typeof res.responseText === "undefined") { 
+        var msg = 'Gasto creado correctamente';
+      }
+      else { 
+        var msg = res.responseText;
+      }
+      $('.container', this.el).append(msgView.render(msg).el);
       $('.msg').delay(500).fadeOut(2000);
     }
 
