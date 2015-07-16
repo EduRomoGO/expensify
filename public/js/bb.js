@@ -16,6 +16,30 @@
   var FetchedExpenses = new ExpenseList();
 
 
+  var MsgView = Backbone.View.extend({
+    
+    tagName: 'div',
+    
+    events: {
+      'click .close': 'hideMsg'
+    },
+
+    initialize: function(){
+      _.bindAll(this, 'render', 'hideMsg');
+    },
+
+    render: function() {
+      $(this.el).html('<span class="close expense-ok">Gasto creado correctamente</span>');
+      console.log('hola hola');
+      return this;
+    },
+
+    hideMsg: function() {
+      $('.close').hide();
+    }
+
+  });
+
 
   var ExpenseView = Backbone.View.extend({
     
@@ -61,10 +85,10 @@
     },
 
     initialize: function(){
-      _.bindAll(this, 'render', 'addExpense', 'appendExpense', 'seeExpenses');
+      _.bindAll(this, 'render', 'addExpense', 'appendExpense', 'seeExpenses', 'showMsgNewExpenseAdded');
 
       this.collection = new ExpenseList();
-      this.collection.bind('add', this.render);
+      this.collection.bind('add', this.showMsgNewExpenseAdded);
       FetchedExpenses.bind('update', this.render);
 
       this.render();
@@ -77,16 +101,13 @@
       _(FetchedExpenses.models).each(function(expense){
         self.appendExpense(expense);
       }, this);
-      _(this.collection.models).each(function(expense){
-        self.appendExpense(expense);
-      }, this);
     },
 
     addExpense: function () {
       var expense = new Expense();
       expense.set({title: $('.title').val(), amount: $('.amount').val()});
       this.collection.add(expense);
-      expense.save();
+      expense.save({success: this.showMsgNewExpenseAdded});
     },
 
     appendExpense: function (expense) {
@@ -98,6 +119,12 @@
 
     seeExpenses: function() {
       FetchedExpenses.fetch();
+    },
+
+    showMsgNewExpenseAdded: function() {
+      console.log('hola');
+      var msgView = new MsgView();
+      $('section', this.el).append(msgView.render().el);
     }
 
   });
