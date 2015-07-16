@@ -16,7 +16,7 @@
   var FetchedExpenses = new ExpenseList();
 
 
-  var MsgView = Backbone.View.extend({
+  var OkMsgView = Backbone.View.extend({
     
     tagName: 'div',
     className: 'msg expense-ok',
@@ -27,6 +27,22 @@
 
     render: function() {
       $(this.el).html('Gasto creado correctamente');
+      return this;
+    }
+
+  });
+
+  var ErrorMsgView = Backbone.View.extend({
+    
+    tagName: 'div',
+    className: 'msg expense-ko',
+
+    initialize: function(){
+      _.bindAll(this, 'render');
+    },
+
+    render: function(msg) {
+      $(this.el).html(msg);
       return this;
     }
 
@@ -76,7 +92,7 @@
     },
 
     initialize: function(){
-      _.bindAll(this, 'render', 'addExpense', 'appendExpense', 'seeExpenses', 'showMsgNewExpenseAdded');
+      _.bindAll(this, 'render', 'addExpense', 'appendExpense', 'seeExpenses', 'showMsgNewExpenseAdded', 'showErrorMsg');
 
       this.collection = new ExpenseList();
       FetchedExpenses.bind('update', this.render);
@@ -98,7 +114,10 @@
       var expense = new Expense();
       expense.set({title: $('.title').val(), amount: $('.amount').val()});
       this.collection.add(expense);
-      expense.save(null, {success: this.showMsgNewExpenseAdded});
+      expense.save(null, {
+          'error': this.showErrorMsg,
+          'success': this.showMsgNewExpenseAdded
+      });
     },
 
     appendExpense: function (expense) {
@@ -117,8 +136,17 @@
       $('.title').val('');
       $('.amount').val('');
       $('.msg').remove();
-      var msgView = new MsgView();
+      var msgView = new OkMsgView();
       $('.container', this.el).append(msgView.render().el);
+      $('.msg').delay(500).fadeOut(2000);
+    },
+
+    showErrorMsg: function(model, res) {
+      $('.title').val('');
+      $('.amount').val('');
+      $('.msg').remove();
+      var msgView = new ErrorMsgView();
+      $('.container', this.el).append(msgView.render(res.responseText).el);
       $('.msg').delay(500).fadeOut(2000);
     }
 
